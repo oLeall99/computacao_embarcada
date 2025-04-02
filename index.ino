@@ -1,5 +1,18 @@
 #include <LiquidCrystal.h>
 
+LiquidCrystal lcd(9, 8, 7, 6, 5, 4);
+
+#define led_red 12
+#define led_green 13
+#define buzzer A0
+#define btnStart 2
+#define btnReset 3
+#define btn01 A5
+#define btn02 A4
+#define btn03 A3
+#define btn04 A2
+
+// Notas utilizadas pelas músicas
 #define NOTE_C4  262
 #define NOTE_D4  294
 #define NOTE_E4  330
@@ -9,45 +22,50 @@
 #define NOTE_B4  494
 #define NOTE_C5  523
 
+// Váriaveis Globais
+volatile bool inMenu = false;
+volatile bool inGame = false;
+volatile bool menuChanged = false;
+volatile int currentMusicIndex = 0;
+const int TOTAL_MUSICS = 6;
+
+// Struct das Músicas
+struct Music {
+  const char* name;
+  const int* melody;
+  const int* duration;
+};
+
+// Música de introdução
 int melody[] = { NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_C5 };
 int noteDurations[] = { 200, 200, 200, 200, 200, 200, 200, 400 };
 
-volatile bool inMenu = false;
-volatile bool inGame = false;
-volatile int currentMusicIndex = 0;
-volatile bool menuChanged = false;
-const int TOTAL_MUSICS = 6;
+int melody1[] = { NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4 };
+int duration1[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 
-struct Music {
-  const char* name;
-  void (*playFunction)();
-};
+int melody2[] = { NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4 };
+int duration2[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 
-void playMusic1();
-void playMusic2();
-void playMusic3();
-void playMusic4();
-void playMusic5();
-void playMusic6();
+int melody3[] = { NOTE_C4, NOTE_E4, NOTE_G4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4, NOTE_G4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4, NOTE_G4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4, NOTE_G4, NOTE_F4, NOTE_D4 };
+int duration3[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
+
+int melody4[] = { NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4 };
+int duration4[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
+
+int melody5[] = { NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4 };
+int duration5[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
+
+int melody6[] = { NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4 };
+int duration6[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 
 const Music MUSICS[] = {
-  {"Musica 1", playMusic1},
-  {"Musica 2", playMusic2},
-  {"Musica 3", playMusic3},
-  {"Musica 4", playMusic4},
-  {"Musica 5", playMusic5},
-  {"Musica 6", playMusic6}
+  {"Musica 1", melody1, duration1},
+  {"Musica 2", melody2, duration2},
+  {"Musica 3", melody3, duration3},
+  {"Musica 4", melody4, duration4},
+  {"Musica 5", melody5, duration5},
+  {"Musica 6", melody6, duration6},
 };
-
-LiquidCrystal lcd(9, 8, 7, 6, 5, 4);
-
-#define led_red 12
-#define led_green 13
-#define buzzer A0
-#define btnStart 2
-#define btnReset 3
-#define btn01 A5
-#define btn04 A2
 
 void setup() {
   Serial.begin(9600);
@@ -87,14 +105,12 @@ void loop() {
 
 void checkMenuButtons() {
   if (digitalRead(btn01) == LOW) {
-    Serial.println("Botão 01 pressionado! (Próxima música)");
     currentMusicIndex = (currentMusicIndex + 1) % TOTAL_MUSICS;
     menuChanged = true;
     delay(300);
   }
 
   if (digitalRead(btn04) == LOW) {
-    Serial.println("Botão 04 pressionado! (Música anterior)");
     currentMusicIndex = (currentMusicIndex - 1 + TOTAL_MUSICS) % TOTAL_MUSICS;
     menuChanged = true;
     delay(300);
@@ -163,14 +179,66 @@ void updateMenu() {
   }
 }
 
-void game() {
-  printLCD("Game", "para jogar!");
+void playSequence(int level) {
+  printLCD("Memorize!", "");
   delay(1000);
+
+  for (int i = 0; i < level * 4; i++) {
+    int note = MUSICS[currentMusicIndex].melody[i];
+    const char* button = getButtonForNote(note);
+    printLCD("Memorize!", ("Botao: " + String(button)).c_str());
+    playNote(note, MUSICS[currentMusicIndex].duration[i]);
+    delay(500);
+  }
 }
 
-void playMusic1() { playNote(NOTE_C4, 200); playNote(NOTE_E4, 200); playNote(NOTE_G4, 200); }
-void playMusic2() { playNote(NOTE_E4, 100); playNote(NOTE_G4, 100); playNote(NOTE_C4, 100); }
-void playMusic3() { playNote(NOTE_G4, 150); playNote(NOTE_C4, 150); playNote(NOTE_E4, 150); }
-void playMusic4() { playNote(NOTE_C4, 100); playNote(NOTE_E4, 200); playNote(NOTE_G4, 100); }
-void playMusic5() { playNote(NOTE_E4, 150); playNote(NOTE_G4, 150); playNote(NOTE_C4, 150); }
-void playMusic6() { playNote(NOTE_G4, 100); playNote(NOTE_C4, 200); playNote(NOTE_E4, 100); }
+bool getUserInput(int level) {
+  printLCD("Sua vez!", "Repita a seq.");
+  delay(1000);
+
+  for (int i = 0; i < level * 4; i++) {
+    int expectedNote = MUSICS[currentMusicIndex].melody[i];
+    const char* expectedButton = getButtonForNote(expectedNote);
+    const char* userButton = waitForButtonPress();
+
+    if (strcmp(userButton, expectedButton) != 0) {
+      printLCD("Voce Errou", "Tente de Novo");
+      delay(2000);
+      return false;
+    }
+  }
+
+  printLCD("Parabens!", "Prox Nivel");
+  delay(2000);
+  return true;
+}
+
+void game() {
+  int level = 1;
+  while (true) {
+    playSequence(level);
+    if (getUserInput(level)) {
+      level++;
+    }
+  }
+}
+
+const char* getButtonForNote(int note) {
+  switch (note) {
+    case NOTE_C4: return "btn01";
+    case NOTE_D4: return "btn02";
+    case NOTE_E4: return "btn03";
+    case NOTE_F4: return "btn04";
+    default: return "0";
+  }
+}
+
+const char*  waitForButtonPress() {
+  while (true) {
+    if (digitalRead(btn01) == LOW) return "btn01";
+    if (digitalRead(btn02) == LOW) return "btn02";
+    if (digitalRead(btn03) == LOW) return "btn03";
+    if (digitalRead(btn04) == LOW) return "btn04";
+    delay(10);
+  }
+}
