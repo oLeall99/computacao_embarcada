@@ -17,7 +17,6 @@ LiquidCrystal lcd(9, 8, 7, 6, 5, 4);
 #define NOTE_D4  294
 #define NOTE_E4  330
 #define NOTE_F4  349
-#define NOTE_G4  392
 #define NOTE_A4  440
 #define NOTE_B4  494
 #define NOTE_C5  523
@@ -37,25 +36,26 @@ struct Music {
 };
 
 // Música de introdução
-int melody[] = { NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_C5 };
+int melody[] = { NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_A4, NOTE_B4, NOTE_C5 };
 int noteDurations[] = { 200, 200, 200, 200, 200, 200, 200, 400 };
+
 
 int melody1[] = { NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4 };
 int duration1[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 
-int melody2[] = { NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4 };
+int melody2[] = {NOTE_F4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4,NOTE_F4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4,NOTE_F4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4,NOTE_F4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4 };
 int duration2[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 
-int melody3[] = { NOTE_C4, NOTE_E4, NOTE_G4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4, NOTE_G4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4, NOTE_G4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4, NOTE_G4, NOTE_F4, NOTE_D4 };
+int melody3[] = { NOTE_C4, NOTE_E4,NOTE_F4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4,NOTE_F4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4,NOTE_F4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4,NOTE_F4, NOTE_F4, NOTE_D4 };
 int duration3[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 
 int melody4[] = { NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4 };
 int duration4[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 
-int melody5[] = { NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4 };
+int melody5[] = {NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4 };
 int duration5[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 
-int melody6[] = { NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_G4 };
+int melody6[] = { NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4 };
 int duration6[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 
 const Music MUSICS[] = {
@@ -199,7 +199,38 @@ bool getUserInput(int level) {
   for (int i = 0; i < level * 4; i++) {
     int expectedNote = MUSICS[currentMusicIndex].melody[i];
     const char* expectedButton = getButtonForNote(expectedNote);
-    const char* userButton = waitForButtonPress();
+    const char* userButton = "";
+    while (true) {
+      if (digitalRead(btn01) == LOW){
+        Serial.println(digitalRead(btn01));
+        Serial.println("btn01");
+        playNote(NOTE_C4, 200);
+        delay(500);
+        userButton = "btn01";
+      } 
+      if (digitalRead(btn02) == LOW) {
+        Serial.println(digitalRead(btn02));
+        Serial.println("btn02");
+        playNote(NOTE_D4, 200);
+        delay(500);
+        userButton = "btn02";
+      }
+      if (digitalRead(btn03) == LOW) {
+        Serial.println(digitalRead(btn03));
+        Serial.println("btn03");
+        playNote(NOTE_E4, 200);
+        delay(500);
+        userButton = "btn03";
+      }
+      if (digitalRead(btn04) == LOW) {
+        Serial.println(digitalRead(btn04));
+        Serial.println("btn04");
+        playNote(NOTE_C4, 200);
+        delay(500);
+        userButton = "btn04";
+      } 
+      delay(10);
+     }
 
     if (strcmp(userButton, expectedButton) != 0) {
       printLCD("Voce Errou", "Tente de Novo");
@@ -233,12 +264,4 @@ const char* getButtonForNote(int note) {
   }
 }
 
-const char*  waitForButtonPress() {
-  while (true) {
-    if (digitalRead(btn01) == LOW) return "btn01";
-    if (digitalRead(btn02) == LOW) return "btn02";
-    if (digitalRead(btn03) == LOW) return "btn03";
-    if (digitalRead(btn04) == LOW) return "btn04";
-    delay(10);
-  }
-}
+
