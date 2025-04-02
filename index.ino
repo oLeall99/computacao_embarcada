@@ -199,37 +199,30 @@ bool getUserInput(int level) {
   delay(1000);
 
   for (int i = 0; i < level * 4; i++) {
+    printLCD("Sua vez!", "Repita a seq.");
     int expectedNote = MUSICS[currentMusicIndex].melody[i];
     const char* expectedButton = getButtonForNote(expectedNote);
     const char* userButton = "";
     while (true) {
       if (digitalRead(btn01) == LOW){
-        Serial.println(digitalRead(btn01));
-        Serial.println("btn01");
         playNote(NOTE_C4, 200);
         delay(500);
         userButton = "btn01";
         break;
       } 
       if (digitalRead(btn02) == LOW) {
-        Serial.println(digitalRead(btn02));
-        Serial.println("btn02");
         playNote(NOTE_D4, 200);
         delay(500);
         userButton = "btn02";
         break;
       }
       if (digitalRead(btn03) == LOW) {
-        Serial.println(digitalRead(btn03));
-        Serial.println("btn03");
         playNote(NOTE_E4, 200);
         delay(500);
         userButton = "btn03";
         break;
       }
       if (digitalRead(btn04) == LOW) {
-        Serial.println(digitalRead(btn04));
-        Serial.println("btn04");
         playNote(NOTE_C4, 200);
         delay(500);
         userButton = "btn04";
@@ -239,9 +232,17 @@ bool getUserInput(int level) {
      }
 
     if (strcmp(userButton, expectedButton) != 0) {
+      digitalWrite(led_red, HIGH);
       printLCD("Voce Errou", "Tente de Novo");
       delay(2000);
+      digitalWrite(led_red, LOW);
       return false;
+    }
+    else {
+      digitalWrite(led_green, HIGH);
+      printLCD("Voce Acertou", "parabens");
+      delay(200);
+      digitalWrite(led_green, LOW);
     }
   }
 
