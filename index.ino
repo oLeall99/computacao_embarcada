@@ -40,31 +40,31 @@ int melody[] = { NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_A4, NOTE_B4, N
 int noteDurations[] = { 200, 200, 200, 200, 200, 200, 200, 400 };
 
 
-int melody1[] = { NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4 };
-int duration1[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
+int melody1[] = { NOTE_F4, NOTE_F4, NOTE_F4, NOTE_D4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_D4, NOTE_D4, NOTE_D4, NOTE_D4 };
+int duration1[] = { 300, 300, 300, 400, 300, 300, 300, 400, 300, 300, 300, 400, 300, 300, 300, 400, 500, 500, 500, 500 };
 
-int melody2[] = {NOTE_F4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4,NOTE_F4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4,NOTE_F4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4,NOTE_F4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4 };
-int duration2[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
+int melody2[] = { NOTE_C4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_C4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_C4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_C4, NOTE_F4 };
+int duration2[] = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 };
 
-int melody3[] = { NOTE_C4, NOTE_E4,NOTE_F4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4,NOTE_F4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4,NOTE_F4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4,NOTE_F4, NOTE_F4, NOTE_D4 };
-int duration3[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
+int melody3[] = { NOTE_D4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_C4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_C4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_F4 };
+int duration3[] = { 150, 150, 150, 150, 200, 200, 200, 150, 150, 150, 150, 150, 150, 200, 200, 200, 150, 150, 150, 150 };
 
-int melody4[] = { NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4 };
+int melody4[] = { NOTE_E4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_E4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_D4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_D4, NOTE_C4, NOTE_D4 };
 int duration4[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 
-int melody5[] = {NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4 };
-int duration5[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
+int melody5[] = { NOTE_F4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_D4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4 };
+int duration5[] = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 };
 
-int melody6[] = { NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4,NOTE_F4 };
-int duration6[] = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
+int melody6[] = { NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_F4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_F4 };
+int duration6[] = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 500, 500, 500, 500 };
 
 const Music MUSICS[] = {
-  {"Musica 1", melody1, duration1},
-  {"Musica 2", melody2, duration2},
-  {"Musica 3", melody3, duration3},
-  {"Musica 4", melody4, duration4},
-  {"Musica 5", melody5, duration5},
-  {"Musica 6", melody6, duration6},
+  {"Star Wars", melody1, duration1},
+  {"Underworld", melody2, duration2},
+  {"Megalovania", melody3, duration3},
+  {"Tetris Theme", melody4, duration4},
+  {"Axel F", melody5, duration5},
+  {" GOT Theme", melody6, duration6},
 };
 
 void setup() {
@@ -77,6 +77,8 @@ void setup() {
   pinMode(btnStart, INPUT_PULLUP);
   pinMode(btnReset, INPUT_PULLUP);
   pinMode(btn01, INPUT_PULLUP);
+  pinMode(btn02, INPUT_PULLUP);
+  pinMode(btn03, INPUT_PULLUP);
   pinMode(btn04, INPUT_PULLUP);
 
   attachInterrupt(digitalPinToInterrupt(btnStart), handleButtonStart, RISING);
@@ -207,6 +209,7 @@ bool getUserInput(int level) {
         playNote(NOTE_C4, 200);
         delay(500);
         userButton = "btn01";
+        break;
       } 
       if (digitalRead(btn02) == LOW) {
         Serial.println(digitalRead(btn02));
@@ -214,6 +217,7 @@ bool getUserInput(int level) {
         playNote(NOTE_D4, 200);
         delay(500);
         userButton = "btn02";
+        break;
       }
       if (digitalRead(btn03) == LOW) {
         Serial.println(digitalRead(btn03));
@@ -221,6 +225,7 @@ bool getUserInput(int level) {
         playNote(NOTE_E4, 200);
         delay(500);
         userButton = "btn03";
+        break;
       }
       if (digitalRead(btn04) == LOW) {
         Serial.println(digitalRead(btn04));
@@ -228,6 +233,7 @@ bool getUserInput(int level) {
         playNote(NOTE_C4, 200);
         delay(500);
         userButton = "btn04";
+        break;
       } 
       delay(10);
      }
