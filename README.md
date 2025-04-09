@@ -2,7 +2,7 @@
 
 ## 👨‍💻 Integrantes
 
-- **Arthur Leal Mussio** - 22.223.017-9
+- **Arthur Leal Mussio**
 
 ## 📚 Descrição do Projeto
 
