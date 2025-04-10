@@ -95,12 +95,10 @@ void loop() {
     printLCD("Pressione B1", "para jogar!");
     delay(1000);
   }
-
-  if (inMenu) {
+  else if (inMenu) {
     checkMenuButtons();
   }
-
-  if (inGame) {
+  else if (inGame) {
     game();
   }
 }
@@ -128,7 +126,12 @@ void handleButtonStart() {
   } else if (inMenu && !inGame) {
     inMenu = false;
     inGame = true;
+  } else if(!inMenu && inGame) {
+    inMenu = true;
+    inGame = false;
+    menuChanged = true;
   }
+  delay(500);
 }
 
 void handleButtonReset() {
@@ -205,24 +208,32 @@ bool getUserInput(int level) {
     const char* userButton = "";
     while (true) {
       if (digitalRead(btn01) == LOW){
+        Serial.println(digitalRead(btn01));
+        Serial.println("btn01");
         playNote(NOTE_C4, 200);
         delay(500);
         userButton = "btn01";
         break;
       } 
       if (digitalRead(btn02) == LOW) {
+        Serial.println(digitalRead(btn02));
+        Serial.println("btn02");
         playNote(NOTE_D4, 200);
         delay(500);
         userButton = "btn02";
         break;
       }
       if (digitalRead(btn03) == LOW) {
+        Serial.println(digitalRead(btn03));
+        Serial.println("btn03");
         playNote(NOTE_E4, 200);
         delay(500);
         userButton = "btn03";
         break;
       }
       if (digitalRead(btn04) == LOW) {
+        Serial.println(digitalRead(btn04));
+        Serial.println("btn04");
         playNote(NOTE_C4, 200);
         delay(500);
         userButton = "btn04";
@@ -245,20 +256,37 @@ bool getUserInput(int level) {
       digitalWrite(led_green, LOW);
     }
   }
-
-  printLCD("Parabens!", "Prox Nivel");
-  delay(2000);
+  if(level < 5) {
+    printLCD("Parabens!", "Prox Nivel");
+    delay(2000);
+  }
+  
   return true;
 }
 
 void game() {
   int level = 1;
-  while (true) {
-    playSequence(level);
-    if (getUserInput(level)) {
-      level++;
+  while(level < 5) {
+    if(level > 5){
+      printLCD("Parabens", "Musica Feita");
+      delay(2000);
+      inGame = false;
+      inMenu = true;
+      menuChanged = true;
+      updateMenu();
+      return;
+    }
+    else{
+     playSequence(level);
+      if (getUserInput(level)) {
+        level++;
+      }       
     }
   }
+
+    
+    
+  
 }
 
 const char* getButtonForNote(int note) {
